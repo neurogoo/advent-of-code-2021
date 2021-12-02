@@ -1,6 +1,6 @@
 use std::fs;
 
-fn day1(vs: &[(String, i32)]) {
+fn part1(vs: &[(String, i32)]) {
     let mut position = 0;
     let mut depth = 0;
     for v in vs {
@@ -14,7 +14,7 @@ fn day1(vs: &[(String, i32)]) {
     println!("{} {} {}", position, depth, position * depth);
 }
 
-fn day2(vs: &[(String, i32)]) {
+fn part2(vs: &[(String, i32)]) {
     let mut position = 0;
     let mut depth = 0;
     let mut aim = 0;
@@ -39,6 +39,6 @@ pub fn run() {
         .map(|s| s.split(' ').collect::<Vec<&str>>())
         .map(|s| (s[0].to_string(), s[1].parse::<i32>().expect("")))
         .collect();
-    day1(&parsed_data);
-    day2(&parsed_data);
+    part1(&parsed_data);
+    part2(&parsed_data);
 }
