@@ -1,17 +1,16 @@
 use std::fs;
 
-fn board_won(board: &Vec<&str>) -> bool {
-    let b = board.to_owned();
+fn board_won(board: &[&str]) -> bool {
     let mut rows = Vec::new();
     for n in [0, 5, 10, 15, 20] {
-        rows.push(b.get(n..n + 5).expect("").join(""));
+        rows.push(board.get(n..n + 5).expect("").join(""));
     }
     let mut columns = Vec::new();
     for n in 0..5 {
         columns.push({
             let vals = (n..25)
                 .step_by(5)
-                .map(|i| *b.get(i).expect(""))
+                .map(|i| *board.get(i).expect(""))
                 .collect::<Vec<_>>();
             vals.join("")
         })
@@ -29,7 +28,7 @@ fn board_won(board: &Vec<&str>) -> bool {
     false
 }
 
-fn calculate_score(board: &Vec<&str>, last_number: i32) -> i32 {
+fn calculate_score(board: &[&str], last_number: i32) -> i32 {
     let unmarked: i32 = board
         .iter()
         .filter(|s| **s != "x")
@@ -38,8 +37,8 @@ fn calculate_score(board: &Vec<&str>, last_number: i32) -> i32 {
     unmarked * last_number
 }
 
-fn part1(bs: &Vec<Vec<&str>>, numbers: &Vec<&str>) {
-    let mut boards = bs.clone();
+fn part1(bs: &Vec<Vec<&str>>, numbers: &[&str]) {
+    let mut boards = bs.to_owned();
     for number in numbers {
         for board in &mut boards {
             for s in board.iter_mut() {
@@ -47,7 +46,7 @@ fn part1(bs: &Vec<Vec<&str>>, numbers: &Vec<&str>) {
                     *s = "x"
                 }
             }
-            if board_won(&board) {
+            if board_won(board) {
                 println!(
                     "{}",
                     calculate_score(board, number.parse::<i32>().expect(""))
@@ -58,8 +57,8 @@ fn part1(bs: &Vec<Vec<&str>>, numbers: &Vec<&str>) {
     }
 }
 
-fn part2(bs: &Vec<Vec<&str>>, numbers: &Vec<&str>) {
-    let mut boards = bs.clone();
+fn part2(bs: &Vec<Vec<&str>>, numbers: &[&str]) {
+    let mut boards = bs.to_owned();
     for number in numbers {
         for board in &mut boards {
             for s in board.iter_mut() {
@@ -68,8 +67,8 @@ fn part2(bs: &Vec<Vec<&str>>, numbers: &Vec<&str>) {
                 }
             }
         }
-        let not_yet_won = boards.iter().filter(|b| !board_won(b)).collect::<Vec<_>>();
-        if not_yet_won.len() == 0 {
+        let not_yet_won = boards.iter().filter(|b| !board_won(b)).count();
+        if not_yet_won == 0 {
             let won_boards = boards.iter().filter(|b| board_won(b)).collect::<Vec<_>>();
             println!(
                 "{}",
