@@ -1,27 +1,17 @@
 use std::fs;
 
 fn board_won(board: &[&str]) -> bool {
-    let mut rows = Vec::new();
     for n in [0, 5, 10, 15, 20] {
-        rows.push(board.get(n..n + 5).expect("").join(""));
-    }
-    let mut columns = Vec::new();
-    for n in 0..5 {
-        columns.push({
-            let vals = (n..25)
-                .step_by(5)
-                .map(|i| *board.get(i).expect(""))
-                .collect::<Vec<_>>();
-            vals.join("")
-        })
-    }
-    for row in rows {
-        if row == "xxxxx" {
+        if board.get(n..n + 5).expect("").iter().all(|b| *b == "x") {
             return true;
         }
     }
-    for column in columns {
-        if column == "xxxxx" {
+    for n in 0..5 {
+        if (n..25)
+            .step_by(5)
+            .map(|i| *board.get(i).expect(""))
+            .all(|b| b == "x")
+        {
             return true;
         }
     }
