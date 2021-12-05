@@ -74,6 +74,7 @@ fn part2(bs: &Vec<Vec<&str>>, numbers: &[&str]) {
     }
 }
 
+#[allow(dead_code)]
 pub fn run() {
     let parsed_data = fs::read_to_string("src/day4input.txt")
         .expect("")

@@ -78,6 +78,7 @@ fn part2(v: &[String]) {
     println!("{} {} {}", ox2, c022, ox2 * c022);
 }
 
+#[allow(dead_code)]
 pub fn run() {
     let parsed_data: Vec<_> = fs::read_to_string("src/day3input.txt")
         .expect("")

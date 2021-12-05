@@ -32,6 +32,7 @@ fn part2(vs: &[(String, i32)]) {
     println!("{} {} {}", position, depth, position * depth);
 }
 
+#[allow(dead_code)]
 pub fn run() {
     let parsed_data: Vec<(String, i32)> = fs::read_to_string("src/day2input.txt")
         .expect("")
