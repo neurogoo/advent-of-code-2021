@@ -44,6 +44,7 @@ fn part12(v: &Vec<Vec<Vec<u32>>>, part2: bool) {
     println!("{:?}", val);
 }
 
+#[allow(dead_code)]
 pub fn run() {
     let data = fs::read_to_string("src/day5input.txt").expect("");
     let parsed_data = data
