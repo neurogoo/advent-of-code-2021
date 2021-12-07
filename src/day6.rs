@@ -22,6 +22,7 @@ fn simulation(fishes: &Vec<u32>, days: usize) {
     )
 }
 
+#[allow(dead_code)]
 pub fn run() {
     let data = fs::read_to_string("src/day6input.txt").expect("");
     let parsed_data = data
