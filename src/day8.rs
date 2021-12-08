@@ -20,8 +20,10 @@ fn decode(v: &Vec<Vec<char>>, extended: bool) -> HashMap<Vec<char>, char> {
             .iter()
             .find(|v| {
                 v.len() == 5 && {
-                    let filtered = v.iter().filter(|c| !four.contains(c) && !three.contains(c));
-                    filtered.count() > 0
+                    v.iter()
+                        .filter(|c| !four.contains(c) && !three.contains(c))
+                        .count()
+                        > 0
                 }
             })
             .unwrap();
@@ -33,22 +35,12 @@ fn decode(v: &Vec<Vec<char>>, extended: bool) -> HashMap<Vec<char>, char> {
         decoder.insert(five.to_owned(), '5');
         let nine = v
             .iter()
-            .find(|v| {
-                v.len() == 6 && {
-                    let filtered = v.iter().filter(|c| !four.contains(c));
-                    filtered.count() == 2
-                }
-            })
+            .find(|v| v.len() == 6 && { v.iter().filter(|c| !four.contains(c)).count() == 2 })
             .unwrap();
         decoder.insert(nine.to_owned(), '9');
         let six = v
             .iter()
-            .find(|v| {
-                v.len() == 6 && {
-                    let filtered = v.iter().filter(|c| !seven.contains(c));
-                    filtered.count() == 4
-                }
-            })
+            .find(|v| v.len() == 6 && { v.iter().filter(|c| !seven.contains(c)).count() == 4 })
             .unwrap();
         decoder.insert(six.to_owned(), '6');
         let zero = v
@@ -76,13 +68,11 @@ fn part2(vs: &Vec<(Vec<Vec<char>>, Vec<Vec<char>>)>) {
         .iter()
         .map(|v| {
             let decoder = decode(&v.0, true);
-            let number = v.1.iter()
-                .map(|n| decoder.get(n).unwrap().to_string())
-                .collect::<Vec<_>>();
-            number
-                .join("")
-                .parse::<u32>()
-                .unwrap()
+            let number =
+                v.1.iter()
+                    .map(|n| decoder.get(n).unwrap().to_string())
+                    .collect::<Vec<_>>();
+            number.join("").parse::<u32>().unwrap()
         })
         .sum::<u32>();
     println!("{:?}", res)
