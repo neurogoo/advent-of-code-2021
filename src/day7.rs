@@ -18,6 +18,7 @@ where
     println!("{:?}", min_pos)
 }
 
+#[allow(dead_code)]
 pub fn run() {
     let data = fs::read_to_string("src/day7input.txt").expect("");
     let parsed_data = data
